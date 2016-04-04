@@ -1,0 +1,30 @@
+<ul class="comments">
+
+    {% for comment in comments %}
+        <div class="comment-content">
+            <div class="comment-date">
+                {{ moment(comment.timestamp).fromNow(refresh=True) }}
+            </div>
+            <div class="comment-author">
+                <a href="{{ url_for('auth.user', username=comment.author.username) }}">{{ comment.author.username }}</a>
+            </div>
+        <div class="comment-body">
+            {% if comment.disabled %}
+            <p><i>你的评论被管理员查封了</i></p>
+            {% endif %}
+            {% if moderate or not comment.disabled %}
+                {{ comment.body }}
+            {% endif %}
+        </div>
+        {% if moderate %}
+            <br>
+            {% if comment.disabled %}
+            <a class="btn btn-default btn-xs" href="{{ url_for('admin.moderate_enable', id=comment.id, page=page) }}">enable</a>
+            {% else %}
+            <a class="btn btn-default btn-xs" href="{{ url_for('admin.moderate_disable', id=comment.id, page=page) }}">disable</a>
+            {% endif %}
+        {% endif %}
+        </div>
+    {% endfor %}
+</ul>
+

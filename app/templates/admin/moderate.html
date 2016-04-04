@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block page_content %}
+
+{% set moderate = True %}
+
+{% include "_comment.html" %}
+
+<div class="pagination">
+{{ macros.pagination_widget(pagination, 'admin.moderate') }}
+</div>
+
+{% endblock %}

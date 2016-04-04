@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+    {% for use in user.followers %}
+    {{ use.username }}
+        <p>sss</p>
+    {% endfor %}
+{% endblock %}

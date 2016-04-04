@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% import '_macros.html' as macros %}
+
+{% block scripts %} {{ super() }} {{ pagedown.include_pagedown() }} {% endblock %}
+
+
+{% block content %}
+<div class="container">
+<div>
+    {% include '_post.html' %}
+</div>
+
+
+{% if pagination %}
+    <div class="pagination">
+            {{ macros.pagination_widget(pagination, 'main.mind') }}
+        </div>
+{% endif %}
+
+<div style="width: 50%;">
+    {% if current_user.scan(Permission.WRITE_ARTICLES) %}
+    {{ wtf.quick_form(form) }}
+    {% endif %}
+</div>
+</div>
+{% endblock %}

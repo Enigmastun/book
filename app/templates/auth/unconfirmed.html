@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block page_content %}
+    <h1>你还没确认邮箱呢</h1>
+    <a href="{{ url_for('auth.resend_confirmation') }}">重发</a>
+{% endblock %}

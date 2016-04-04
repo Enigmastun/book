@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+
+<h1 style="color: #444;">{{ user.username }}</h1>
+<p>居住地：{{ user.location }}</p>
+<p>自我介绍： {{ user.about_me }}</p>
+<p>注册时间： {{ user.member_since }}</p>
+{% if user == current_user %}
+<div><a class="btn btn-default" href="{{ url_for('main.edit_profile') }}">Edit profile</a></div>
+{% endif %}
+
+{% if current_user.scan(Permission.FOLLOW) and user != current_user %}
+    {% if not current_user.is_following(user) %}
+    <a href="{{ url_for('auth.follow', username=user.username) }}" class="btn btn-default">
+        Follow
+    </a>
+    {% else %}
+    <a href="{{ url_for('auth.unfollow', username=user.username) }}" class="btn btn-default">
+        Unfollow
+    </a>
+    {% endif %}
+{% endif %}
+
+<div style="margin-top: 5px;">
+
+Followers:<a href="{{ url_for('auth.followers', username=user.username) }}"><span class="badge">{{ user.followers.count() }}</span></a>
+Following:<a href="{{ url_for('auth.followed_by', username=user.username) }}"><span class="badge">{{ user.followed.count() }}</span></a>
+
+</div>
+
+
+{% if current_user.is_administrator() %}
+    <a class="btn btn-danger" href="{{ url_for('admin.admin_editprofile', id=user.id) }}">Edit Profile [Admin]</a>
+{% endif %}
+
+{% endblock %}
