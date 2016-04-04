@@ -10,7 +10,7 @@ class Config:
         MAIL_USE_TLS = True
 
         MAIL_USERNAME = '496271730@qq.com'
-        MAIL_PASSWORD = 'zaxdkdrqucqebiee'
+        MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
         FLASKY_ADMIN = '845216875@qq.com'
 
         @staticmethod
@@ -19,7 +19,7 @@ class Config:
 
 
 class Development(Config):
-    SQLALCHEMY_DATABASE_URI = "sqlite:///C:/Users/Join Smit/PycharmProjects/book/app/static/data.db"
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 
 
 config = {
